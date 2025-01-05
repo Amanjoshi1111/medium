@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 type Input = {
     type: string,
     placeholder: string,
-    headingName: string
+    headingName: string,
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-export default function Input({ type, placeholder, headingName }: Input) {
+export default function Input({ type, placeholder, headingName, onChange }: Input) {
 
-    const [showPassword, setShowPassoword] = useState(true);
     const isPassword = (type == 'password');
+    const [showPassword, setShowPassoword] = useState((isPassword));
 
     const onClick = () => {
         setShowPassoword(!showPassword);
@@ -21,6 +22,7 @@ export default function Input({ type, placeholder, headingName }: Input) {
             <input className="border rounded-md w-full py-1.5 px-2.5"
                 type={showPassword ? 'password' : 'text'}
                 placeholder={placeholder}
+                onChange={onChange}
             />
             {(isPassword) && <span className="absolute right-2 cursor-pointer" onClick={onClick}><Eye state={showPassword} /></span>}
         </div>
