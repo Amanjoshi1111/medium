@@ -34,12 +34,12 @@ export default function Signup() {
                 alert('No token recieved');
             }
         } catch (err) {
-            console.log("ERROR");
+            console.log("ERROR", err);
             if (err instanceof AxiosError) {
                 if (err.response?.status == 401)
                     alert(err.response.data.msg);
-                else {
-                    alert(`Message : ${err.response?.status}`);
+                else if(err.response?.status == 411){
+                    alert(`Invalid fields`);
                 }
             } else if (err instanceof Error) {
                 alert(`Unknown error : ${err.message}`);

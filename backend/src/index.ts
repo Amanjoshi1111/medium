@@ -1,6 +1,8 @@
 import { Hono } from 'hono'
 import userRouter from './routes/user.route'
 import blogRouter from './routes/blog.route'
+import { cors } from 'hono/cors';
+
 
 const app = new Hono<{
     Bindings: {
@@ -8,6 +10,8 @@ const app = new Hono<{
         SECRET_KEY: string
     }
 }>().basePath('/api/v1/');
+
+app.use("/*", cors());
 
 app.get('/', (c) => {
     return c.text('Hello Hono!')

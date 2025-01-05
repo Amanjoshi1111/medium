@@ -1,20 +1,17 @@
 {
-  "name": "backend",
-  "scripts": {
-    "build": "esbuild src/index.ts --bundle --format=esm --outfile=dist/worker.mjs --platform=node --external:@amanjoshi1111/medium-common",
-    "dev": "wrangler dev",
-    "deploy": "wrangler deploy --minify"
-  },
-  "dependencies": {
-    "@amanjoshi1111/medium-types": "^1.0.3",
-    "@prisma/client": "^6.1.0",
-    "@prisma/extension-accelerate": "^1.2.1",
-    "dotenv": "^16.4.7",
-    "hono": "^4.6.15"
-  },
-  "devDependencies": {
-    "@cloudflare/workers-types": "^4.20241218.0",
-    "prisma": "^6.1.0",
-    "wrangler": "^3.96.0"
-  }
+    "name": "backend",
+    "scripts": {
+        "dev": "wrangler dev --port 3000",
+        "deploy": "wrangler deploy --minify"
+    },
+    "dependencies": {
+        "@amanjoshi1111/medium-types": "^1.0.3",
+        "@prisma/extension-accelerate": "^1.2.1",
+        "hono": "^4.6.16",
+        "zod": "^3.24.1"
+    },
+    "devDependencies": {
+        "@cloudflare/workers-types": "^4.20241230.0",
+        "wrangler": "^3.99.0"
+    }
 }

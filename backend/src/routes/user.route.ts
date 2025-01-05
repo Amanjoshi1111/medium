@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { decode, sign, verify } from 'hono/jwt'
 import { getPrisma } from "../db";
 import { signinInput, signupInput } from "@amanjoshi1111/medium-types";
+import { Prisma } from "@prisma/client";
 
 const userRouter = new Hono<{
     Bindings: {
@@ -12,15 +13,14 @@ const userRouter = new Hono<{
 
 userRouter.post('/signup', async (c) => {
     try {
-        const prisma = getPrisma(c.env.DATABASE_URL);
-
         const body = await c.req.json();
-        const { success, error } = signupInput.safeParse(body);
+        const prisma = getPrisma(c.env.DATABASE_URL);
+        const { success, data, error } = signupInput.safeParse(body);
 
-        if (!error) {
+        if (!success) {
             return c.json({
                 msg: error
-            })
+            }, 411)
         }
 
         const user = await prisma.user.create({
@@ -31,13 +31,20 @@ userRouter.post('/signup', async (c) => {
         return c.json({
             msg: "User created successfully",
             jwt: token
-        })
-    } catch (err) {
+        }, 200)
+    } catch (err: unknown) {
+        if (err instanceof Error) {
+            if((err as any).code == 'P2002'){
+                return c.json({
+                    msg: "Email already exist"
+                }, 401)
+            }
+        }
         if (err instanceof Error) {
             console.log('ERROR: ', err.stack);
             return c.json({
                 error: err.message
-            })
+            }, 500)
         }
     }
 })
@@ -47,12 +54,12 @@ userRouter.post('/signin', async (c) => {
         const prisma = getPrisma(c.env.DATABASE_URL);
         const body = await c.req.json();
 
-        const { success, error } = signinInput.safeParse(body);
+        const { success, data, error } = signinInput.safeParse(body);
 
-        if (error) {
+        if (!success) {
             return c.json({
                 msg: error
-            })
+            }, 411)
         }
 
         const user = await prisma.user.findUnique({
@@ -61,7 +68,7 @@ userRouter.post('/signin', async (c) => {
 
         if (!user) {
             return c.json({
-                msg: "No such user found"
+                msg: "Invalid Credentials"
             }, 401)
         }
 
