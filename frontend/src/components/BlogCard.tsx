@@ -1,4 +1,5 @@
 import { InitialCircle } from "./InitialCircle"
+import placeHolderImage from "../assets/writing.jpg";
 
 export default function BlogCard() {
     return <div className="flex py-10 border-b  justify-between">
@@ -14,7 +15,7 @@ export default function BlogCard() {
             </div>
             <div className="flex justify-between items-center py-5">
                 <div className="flex space-x-3 items-center">
-                    <div className="px-3 py-1 bg-gray-200 text-gray-700 cursor-pointer rounded-3xl">Side Hustle</div>
+                    <div className="px-3 py-1 bg-gray-200 text-gray-700 cursor-pointer rounded-3xl hover:bg-gray-500 hover:text-white">Side Hustle</div>
                     <div className="text-gray-500">3 min read</div>
                 </div>
                 <div className="flex space-x-5 [&>*]:cursor-pointer [&>*]:text-gray-500">
@@ -32,7 +33,8 @@ export default function BlogCard() {
             </div>
         </div>
         <div className="hidden lg:flex  items-center flex-1 justify-center">
-            <div className="bg-red-500 w-40 h-48">
+            <div className="flex justify-center items-center  overflow-hidden">
+                <img src={placeHolderImage} alt="image" className="object-cover object-center  w-40 h-48 scale-125" />
             </div>
         </div>
     </div>
