@@ -1,5 +1,6 @@
 import { InitialCircle } from "./InitialCircle"
-import placeHolderImage from "../assets/writing.jpg";
+import notesImage from "../assets/writing.jpg";
+import codeImage from "../assets/code.jpg";
 
 export default function BlogCard() {
     return <div className="flex py-10 border-b  justify-between">
@@ -34,7 +35,7 @@ export default function BlogCard() {
         </div>
         <div className="hidden lg:flex  items-center flex-1 justify-center">
             <div className="flex justify-center items-center  overflow-hidden">
-                <img src={placeHolderImage} alt="image" className="object-cover object-center  w-40 h-48 scale-125" />
+                <img src={codeImage} alt="image" className="object-cover object-center  w-40 h-48 scale-125" />
             </div>
         </div>
     </div>
