@@ -1,19 +1,38 @@
 import { InitialCircle } from "./InitialCircle"
-import notesImage from "../assets/writing.jpg";
 import codeImage from "../assets/code.jpg";
+import { useNavigate } from "react-router-dom";
 
-export default function BlogCard() {
+export interface BlogCardProps {
+    id: string,
+    authorName: string,
+    title: string,
+    content: string,
+    publishedData: string | "2 min ago"
+}
+
+export default function BlogCard({
+    id,
+    authorName,
+    title,
+    content,
+    publishedData
+}: BlogCardProps) {
+
+    const navigate = useNavigate();
+
+    function goToBlog(){
+        navigate(`/blog/${id}`);
+    }
+
     return <div className="flex py-10 border-b  justify-between">
-        <div className="flex flex-col space-y-3 w-full lg:w-2/3">
+        <div className="flex flex-col space-y-3 w-full lg:w-2/3 cursor-pointer" onClick={goToBlog}>
             <div className="flex space-x-2 items-center">
                 <InitialCircle initial="h" />
-                <div className="font-medium">Peter V.</div>
-                <div className="text-gray-500">Dec 3, 2023</div>
+                <div className="font-medium">{authorName}</div>
+                <div className="text-gray-500">{`${Math.ceil(content.length / 100)} min read`}</div>
             </div>
-            <div className="font-bold text-4xl">How an Ugly Single-Page Website Makes $5,000 a Month with Affiliate Marketing</div>
-            <div className="text-justify">No need to create a fancy modern website with hundreds of pages to make money online Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat veritatis modi odio qui neque hic sint quos minus vero commodi?.
-                Making money online is the dream for man...
-            </div>
+            <div className="font-bold text-4xl">{title}</div>
+            <div className="text-justify">{(content.length > 100) ? content.slice(0, 100) + "..." : content}</div>
             <div className="flex justify-between items-center py-5">
                 <div className="flex space-x-3 items-center">
                     <div className="px-3 py-1 bg-gray-200 text-gray-700 cursor-pointer rounded-3xl hover:bg-gray-500 hover:text-white">Side Hustle</div>

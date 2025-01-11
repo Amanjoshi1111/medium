@@ -69,19 +69,18 @@ blogRouter
     })
     .get('/:id', async (c) => {
 
+        console.log(c.req.param('id'));
         const prisma = getPrisma(c.env.DATABASE_URL);
-        const posts = await prisma.post.findMany({
+        const post = await prisma.post.findFirst({
             where: {
-                authorId: c.req.param('id')
+                id: c.req.param('id')
+            },
+            include: {
+                author: true
             }
         })
 
-        return c.json({
-            posts: posts
-        })
-        return c.json({
-            posts: posts
-        })
+        return c.json(post);
     })
 
 export default blogRouter;

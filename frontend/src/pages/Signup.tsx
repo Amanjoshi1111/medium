@@ -29,7 +29,7 @@ export default function Signup() {
             console.log("token", token);
             if (token) {
                 localStorage.setItem('token', token);
-                navigator("/blog");
+                navigator("/blogs");
             } else {
                 alert('No token recieved');
             }
@@ -67,7 +67,7 @@ export default function Signup() {
                             email: e.target.value
                         })
                     }} />
-                    <Input type="password" placeholder="" headingName="Password" onChange={(e) => {
+                    <Input type="password" placeholder="Enter your password" headingName="Password" onChange={(e) => {
                         useSignupInputs({
                             ...signupInputs,
                             password: e.target.value

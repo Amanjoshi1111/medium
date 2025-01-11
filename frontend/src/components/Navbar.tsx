@@ -1,9 +1,13 @@
+import { useNavigate } from "react-router-dom"
 import { InitialCircle } from "./InitialCircle"
 import SearchInput from "./SearchInput"
 
 export default function Navbar() {
-    return <div className="h-20 top-0 flex justify-between items-center w-full">
-        <div className="flex items-center space-x-3 pr-4">
+
+    const navigate = useNavigate();
+
+    return <div className="h-20 top-0 flex justify-between items-center w-full cursor-pointer">
+        <div className="flex items-center space-x-3 pr-4" onClick={()=> navigate("/blogs")}>
             <div className="flex space-x-1px">
                 <div className="rounded-full w-10 h-10 bg-black"></div>
                 <div className="rounded-[70%]  w-5 h-10 bg-black"></div>

@@ -23,7 +23,7 @@ export default function Signin() {
             const token = response.data?.jwt;
             if (token) {
                 localStorage.setItem('token', token);
-                navigator("/blog");
+                navigator("/blogs");
             }else {
                 alert('No token recieved');
             }
@@ -57,7 +57,7 @@ export default function Signin() {
                             email: e.target.value
                         })
                     }} />
-                    <Input type="password" placeholder="" headingName="Password" onChange={(e) => {
+                    <Input type="password" placeholder="Enter your password" headingName="Password" onChange={(e) => {
                         useSigninInputs({
                             ...signinInputs,
                             password: e.target.value

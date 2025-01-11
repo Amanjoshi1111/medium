@@ -5,6 +5,7 @@ import { SignatureKey } from "hono/utils/jwt/jws";
 
 export const authMiddleware = createMiddleware(async (c, next) => {
 
+    console.log('PATH ', c.req.path);
     const headers = c.req.header('authorization') || "";
     const token = headers.split(" ")[1];
 
